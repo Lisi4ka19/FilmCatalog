@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<body>
+
+<h2>All film list</h2>
+<br><br>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Year of issue</th>
+        <th>Producer</th>
+    </tr>
+
+    <tr th:each="film: ${allFilms}">
+        <td th:text="${film.id}"></td>
+        <td th:text="${film.name}"></td>
+        <td th:text="${film.description}"></td>
+        <td th:text="${film.yearOfIssue}"></td>
+        <td th:text="${film.producer}"></td>
+    </tr>
+<!--    <c:forEach var="film" items="${allFilms}">-->
+<!--        <tr>-->
+<!--            <td>${film.name}</td>-->
+<!--            <td>${film.description}</td>-->
+<!--            <td>${film.yearOfIssue}</td>-->
+<!--            <td>${film.producer}</td>-->
+<!--        </tr>-->
+<!--    </c:forEach>-->
+
+
+</table>
+<br><br>
+<input type="button" value="add"
+       onclick="window.location.href='addFilm'">
+
+</body>
+
+
+</html>
