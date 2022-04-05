@@ -20,16 +20,29 @@ public class Film {
     @Column(name="year_issue")
     private int yearOfIssue;
 
+    @Column(name="producer")
+    private String producer;
+
+
 //    username varchar(15),
 
 
     public Film() {
     }
 
-    public Film(String name, String description, int yearOfIssue) {
+    public Film(String name, String description, int yearOfIssue, String producer) {
         this.name = name;
         this.description = description;
         this.yearOfIssue = yearOfIssue;
+        this.producer = producer;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     public int getId() {
@@ -66,11 +79,12 @@ public class Film {
 
     @Override
     public String toString() {
-        return "film{" +
+        return "Film{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", yearOfIssue=" + yearOfIssue +
+                ", producer='" + producer + '\'' +
                 '}';
     }
 }
