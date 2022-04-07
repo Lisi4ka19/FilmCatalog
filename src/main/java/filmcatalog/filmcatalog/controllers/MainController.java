@@ -25,7 +25,6 @@ public class MainController {
     @GetMapping("/allFilms")
     public String getAllFilms(Model model){
 
-
         List<Film> filmList =filmService.getAllFilm();
 
         model.addAttribute("allFilms", filmList);
