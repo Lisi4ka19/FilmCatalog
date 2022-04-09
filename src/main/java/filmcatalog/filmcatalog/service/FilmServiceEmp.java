@@ -4,6 +4,9 @@ package filmcatalog.filmcatalog.service;
 import filmcatalog.filmcatalog.dao.FilmRepository;
 import filmcatalog.filmcatalog.entity.Film;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +19,13 @@ public class FilmServiceEmp implements FilmService{
     private FilmRepository filmRepository;
 
     @Override
-    public List<Film> getAllFilm() {
-        return filmRepository.findAll();
+    public Page<Film> getAllFilm(Pageable pageable) {
+
+//        Pageable pageable = PageRequest.of(0, 2);
+        Page<Film> page = filmRepository.findAll(pageable);
+//        List<Film> filmList = page.getContent();
+
+        return page;
     }
 
     @Override

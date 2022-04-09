@@ -14,29 +14,46 @@
         <th>Description</th>
         <th>Year of issue</th>
         <th>Producer</th>
+        <th>Operation</th>
+
     </tr>
 
     <tr th:each="film: ${allFilms}">
+
+
+
         <td th:text="${film.id}"></td>
         <td th:text="${film.name}"></td>
         <td th:text="${film.description}"></td>
         <td th:text="${film.yearOfIssue}"></td>
         <td th:text="${film.producer}"></td>
-    </tr>
-<!--    <c:forEach var="film" items="${allFilms}">-->
-<!--        <tr>-->
-<!--            <td>${film.name}</td>-->
-<!--            <td>${film.description}</td>-->
-<!--            <td>${film.yearOfIssue}</td>-->
-<!--            <td>${film.producer}</td>-->
-<!--        </tr>-->
-<!--    </c:forEach>-->
 
+        <td>
+
+            <a th:href="@{/updateFilm(id=${film.id})}"> <input type="button" value="update"></a>
+            <a th:href="@{/deleteFilm(id=${film.id})}"><input type="button" value="delete"></a>
+
+        </td>
+    </tr>
 
 </table>
-<br><br>
+
+<br>
+
 <input type="button" value="add"
-       onclick="window.location.href='addFilm'">
+               onclick="window.location.href='addFilm'">
+<br>
+<div th:replace="::frag (onevar=1,twovar=${totalPage})">
+<input type="button" th:value="${onevar}"
+       onclick="window.location.href=''">
+</div>
+<br>
+<br>
+<input type="button" value="main"
+       onclick="window.location.href='/'">
+
+
+
 
 </body>
 

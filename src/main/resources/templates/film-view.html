@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<body>
+
+<h2>Film info</h2>
+
+<form action="#" th:action="saveFilm" th:object="${film}" >
+
+    <input type="hidden" th:field="*{id}"/><br><br>
+    Name <input type="text" th:field="*{name}"/><br><br>
+    Description <input type="text" th:field="*{description}"/><br><br>
+    Year of issue <input type="text" th:field="*{yearOfIssue}"/><br><br>
+    Producer <input type="text" th:field="*{producer}"/>
+
+<!--    ${session.user.name})-->
+    <br>
+    <br>
+
+    <input type="submit" value="OK">
+    <input type="button" value="Cancel" onclick="window.location.href='allFilms'">
+</form>
+
+
+</body>
+
+
+</html>
