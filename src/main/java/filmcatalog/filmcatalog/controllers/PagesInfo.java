@@ -1,7 +1,9 @@
 package filmcatalog.filmcatalog.controllers;
 
 import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class PagesInfo {
 
     private Page page;
     private List<PageItems> pageItemsList;
-    private int currentNumber;
+
 
     public PagesInfo(Page page){
         this.page = page;
@@ -33,15 +35,17 @@ public class PagesInfo {
         this.pageItemsList = pageItemsList;
     }
 
-    private void fillUpItems(){
-        for(int i=1; i< page.getTotalPages();i++){
+    private void fillUpItems() {
+        for (int i = 1; i < page.getTotalPages(); i++) {
             int currentNumber = page.getNumber();
-            boolean isCurrentPage = currentNumber ==i-1;
-            pageItemsList.add(new PageItems(i,  isCurrentPage, ""));
+            boolean isCurrentPage = currentNumber == i - 1;
+            pageItemsList.add(new PageItems(i, isCurrentPage, ""));
         }
     }
 
+
     private class PageItems{
+
         private int number;
         private boolean isCurrent;
         private String URL;
@@ -75,6 +79,11 @@ public class PagesInfo {
         public void setURL(String URL) {
             this.URL = URL;
         }
+
+
+
+
+
     }
 
 }
