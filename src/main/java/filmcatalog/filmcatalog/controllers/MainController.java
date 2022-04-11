@@ -34,11 +34,13 @@ public class MainController {
 
         Page<Film> page = filmService.getAllFilm(pageableCurrent);
 
+        PagesInfo pagesInfo = new PagesInfo(page);
+
 //        List<Film> filmList =filmService.getAllFilm(pageable);
 
         model.addAttribute("allFilms", page.getContent());
         model.addAttribute("totalPage", page.getTotalPages());
-        model.addAttribute("currentPage", pageableCurrent.getPageNumber());
+        model.addAttribute("itemPage", pagesInfo.getPageItemsList());
 
         return "all-films";
     }
