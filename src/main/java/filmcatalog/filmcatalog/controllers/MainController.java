@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +30,13 @@ public class MainController {
     }
 
     @GetMapping("/allFilms")
-    public String getAllFilms(Model model, Pageable pageable){
+    public String getAllFilms(Model model, @PageableDefault(sort={"id"}, direction = Sort.Direction.ASC) Pageable pageable){
 //        pageable.getPageNumber()
-        Pageable pageableCurrent = PageRequest.of(0, 2);
 
-        Page<Film> page = filmService.getAllFilm(pageableCurrent);
+//        Pageable pageableCurrent = PageRequest.of(0, 2);
 
+//        Page<Film> page = filmService.getAllFilm(pageableCurrent);
+        Page<Film> page = filmService.getAllFilm(pageable);
         PagesInfo pagesInfo = new PagesInfo(page);
 
 //        List<Film> filmList =filmService.getAllFilm(pageable);

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PagesInfo {
@@ -15,6 +16,7 @@ public class PagesInfo {
 
     public PagesInfo(Page page){
         this.page = page;
+        pageItemsList = new ArrayList<>();
 //        this.currentNumber = currentNumber;
         fillUpItems();
     }
@@ -36,10 +38,11 @@ public class PagesInfo {
     }
 
     private void fillUpItems() {
-        for (int i = 1; i < page.getTotalPages(); i++) {
+        for (int i = 0; i < page.getTotalPages(); i++) {
             int currentNumber = page.getNumber();
             boolean isCurrentPage = currentNumber == i - 1;
-            pageItemsList.add(new PageItems(i, isCurrentPage, ""));
+            PageItems pageItems = new PageItems(i, isCurrentPage, "");
+            pageItemsList.add(pageItems);
         }
     }
 
