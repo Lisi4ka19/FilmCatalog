@@ -42,8 +42,9 @@ public class MainController {
 //        List<Film> filmList =filmService.getAllFilm(pageable);
 
         model.addAttribute("allFilms", page.getContent());
-        model.addAttribute("totalPage", page.getTotalPages());
+//        model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("itemPage", pagesInfo.getPageItemsList());
+        model.addAttribute("size", page.getSize());
 
         return "all-films";
     }

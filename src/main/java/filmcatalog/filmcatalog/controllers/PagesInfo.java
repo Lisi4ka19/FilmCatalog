@@ -40,7 +40,7 @@ public class PagesInfo {
     private void fillUpItems() {
         for (int i = 0; i < page.getTotalPages(); i++) {
             int currentNumber = page.getNumber();
-            boolean isCurrentPage = currentNumber == i - 1;
+            boolean isCurrentPage = currentNumber == i;
             PageItems pageItems = new PageItems(i, isCurrentPage, "");
             pageItemsList.add(pageItems);
         }
