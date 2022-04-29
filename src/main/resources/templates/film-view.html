@@ -6,56 +6,91 @@
 </head>
 <body>
 
-<h2>Film info</h2>
 
-<form th:action="saveFilm" th:object="${film}" >
-    <input type="hidden" th:field="*{id}"/><br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <form method="post" style="max-width: 500px;" enctype="multipart/form-data" th:action="saveFilm" th:object="${film}" >
 
-<!--    <div class="form-group">-->
-<!--        <label for="formGroupExampleInput">Name</label>-->
-<!--&lt;!&ndash;        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" th:field="*{name}"/>&ndash;&gt;-->
-<!--        <input type="text" id="formGroupExampleInput" class="form-control" placeholder="Name" th:field="*{name}"/>-->
-<!--    </div>-->
-    <div class="row">
-        <div class="col">
-            <label for="formGroupNameInput">Name</label>
-            <input type="text" id="formGroupNameInput" class="form-control"  th:field="*{name}"/>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/allFilms">List of films</a></li>
+                    </ol>
+                </nav>
+
+                <br>
+
+                <h2>Film info</h2>
+
+                <input type="hidden" th:field="*{id}"/><br><br>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="formGroupNameInput">Name</label>
+                        <input type="text" id="formGroupNameInput" class="form-control" th:field="*{name}"/>
+                    </div>
+                    <div class="col">
+                        <label for="formGroupYearInput">Year of issue</label>
+                        <input type="text" id="formGroupYearInput" class="form-control" th:field="*{yearOfIssue}"/>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <label for="formGroupProducerInput">Producer</label>
+                    <input type="text" id="formGroupProducerInput" class="form-control" th:field="*{producer}"/>
+                </div>
+                <br>
+                <div class="row">
+                    <label for="formGroupDescriptionInput">Description</label>
+                    <textarea class="form-control" id="formGroupDescriptionInput" rows="3"
+                              th:field="*{description}"></textarea>
+                </div>
+                <br>
+                <br>
+<!--                <img width="200" id="output" th:src="'data:image/jpg;base64,' +  '${codeStringImage}'">-->
+                <img width="200" alt="Image" id="output" th:src="@{'data:image/jpeg;base64,'+${codeStringImage}}">
+
+                <input type="file" id="file-selector" multiple name="file">
+                <p id="status"></p>
+                <br>
+                <br>
+
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='allFilms'">Cancel
+                </button>
+            </form>
         </div>
-        <div class="col">
-            <label for="formGroupYearInput">Year of issue</label>
-            <input type="text" id="formGroupYearInput" class="form-control"  th:field="*{yearOfIssue}"/>
-        </div>
     </div>
-    <br>
-    <div class="row">
-        <label for="formGroupProducerInput">Producer</label>
-        <input type="text" id="formGroupProducerInput" class="form-control"  th:field="*{producer}"/>
-    </div>
-    <br>
-    <div class="row">
-        <label for="formGroupDescriptionInput">Description</label>
-        <textarea class="form-control" id="formGroupDescriptionInput" rows="3" th:field="*{description}"></textarea>
-    </div>
-    <br>
-    <br>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-secondary" onclick="window.location.href='allFilms'">Cancel</button>
-</form>
-<!--<form action="#" th:action="saveFilm" th:object="${film}" >-->
+</div>
 
-<!--    <input type="hidden" th:field="*{id}"/><br><br>-->
-<!--    Name <input type="text" th:field="*{name}"/><br><br>-->
-<!--    Description <input type="text" th:field="*{description}"/><br><br>-->
-<!--    Year of issue <input type="text" th:field="*{yearOfIssue}"/><br><br>-->
-<!--    Producer <input type="text" th:field="*{producer}"/>-->
+<script src="..\static\js\readFile.js"></script>
+<script>
+    const status = document.getElementById('status');
+    const output = document.getElementById('output');
+    if (window.FileList && window.File && window.FileReader) {
+        document.getElementById('file-selector').addEventListener('change', event => {
+            output.src = '';
+            status.textContent = '';
+            const file = event.target.files[0];
+            if (!file.type) {
+                status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
+                return;
+            }
+            if (!file.type.match('image.*')) {
+                status.textContent = 'Error: The selected file does not appear to be an image.'
+                return;
+            }
+            const reader = new FileReader();
+            reader.addEventListener('load', event => {
+                output.src = event.target.result;
 
-
-<!--    <br>-->
-<!--    <br>-->
-
-<!--    <input type="submit" value="OK">-->
-<!--    <input type="button" value="Cancel" onclick="window.location.href='allFilms'">-->
-<!--</form>-->
+            });
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
 
 
 </body>

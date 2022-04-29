@@ -57,10 +57,6 @@
                     <a th:href="@{/updateFilm(id=${film.id})}"> <i class="fa fa-edit"></i></a>
                     <i class="fa fa-trash" th:data-href="'/deleteFilm?id=' + ${film.id}" data-bs-toggle="modal" data-bs-target="#confirm-delete"></i>
 
-
-<!--                    <button class="btn btn-default" th:data-href="'/deleteFilm?id=' + ${film.id}" data-bs-toggle="modal" data-bs-target="#confirm-delete">-->
-<!--                        Delete record-->
-<!--                    </button>-->
                 </td>
             </tr>
             </tbody>

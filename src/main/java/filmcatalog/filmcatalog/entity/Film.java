@@ -23,6 +23,8 @@ public class Film {
     @Column(name="producer")
     private String producer;
 
+    @Column(name="image")
+    private byte[] image;
 
 //    username varchar(15),
 
@@ -75,6 +77,14 @@ public class Film {
 
     public void setYearOfIssue(int yearOfIssue) {
         this.yearOfIssue = yearOfIssue;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override

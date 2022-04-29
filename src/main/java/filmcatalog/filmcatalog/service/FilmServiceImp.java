@@ -19,9 +19,7 @@ public class FilmServiceImp implements FilmService{
     @Override
     public Page<Film> getAllFilm(Pageable pageable) {
 
-//        Pageable pageable = PageRequest.of(0, 2);
         Page<Film> page = filmRepository.findAll(pageable);
-//        List<Film> filmList = page.getContent();
 
         return page;
     }
