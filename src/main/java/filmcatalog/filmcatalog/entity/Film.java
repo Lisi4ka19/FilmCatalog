@@ -26,7 +26,8 @@ public class Film {
     @Column(name="image")
     private byte[] image;
 
-//    username varchar(15),
+    @Column(name="username")
+    String username;
 
 
     public Film() {
@@ -85,6 +86,14 @@ public class Film {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

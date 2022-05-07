@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,10 @@ public class MainController {
     private FilmService filmService;
 
     @GetMapping("/")
-    public String getMainPage(){
+    public String getMainPage(Model model){
+        String username = getUserName();
 
+        model.addAttribute("username", username);
         return "main";
     }
 
@@ -44,6 +48,7 @@ public class MainController {
 
         model.addAttribute("itemPage", pagesInfo.getPageItemsList());
         model.addAttribute("size", page.getSize());
+        model.addAttribute("username", getUserName());
 
         return "all-films";
     }
@@ -52,7 +57,14 @@ public class MainController {
     public String addFilm(Model model){
 
         Film film = new Film();
+
+        String username = getUserName();
+
+        film.setUsername(username);
+
         model.addAttribute("film", film);
+        model.addAttribute("username", username);
+        model.addAttribute("enable", true);
 
         return "film-view";
     }
@@ -64,6 +76,9 @@ public class MainController {
         } catch (IOException e) {
             System.out.println("Error for read file");
         }
+
+        String username = getUserName();
+        film.setUsername(username);
 
         filmService.saveFilm(film);
 
@@ -84,6 +99,11 @@ public class MainController {
 
         model.addAttribute("codeStringImage", codeStringImage);
 
+        String username = getUserName();
+        Boolean enable = username.equals(film.getUsername())||film.getUsername()==null;
+        model.addAttribute("enable", enable);
+        model.addAttribute("username", username);
+
         return "film-view";
     }
 
@@ -94,4 +114,14 @@ public class MainController {
 
         return "redirect:/allFilms";
     }
+
+
+
+    public String getUserName(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username =  auth.getName();
+
+        return username;
+    }
+
 }
