@@ -38,16 +38,19 @@
                     <div class="col">
                         <label for="formGroupNameInput">Name</label>
                         <input type="text" id="formGroupNameInput" class="form-control" th:field="*{name}" th:readonly="${enable==true}?'false':'true'"/>
+                        <div class="color-text-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
                     <div class="col">
                         <label for="formGroupYearInput">Year of issue</label>
                         <input type="text" id="formGroupYearInput" class="form-control" th:field="*{yearOfIssue}" th:readonly="${enable==true}?'false':'true'"/>
+                        <div class="color-text-error" th:if="${#fields.hasErrors('yearOfIssue')}" th:errors="*{yearOfIssue}"></div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <label for="formGroupProducerInput">Producer</label>
                     <input type="text" id="formGroupProducerInput" class="form-control" th:field="*{producer}" th:readonly="${enable==true}?'false':'true'"/>
+                    <div class="color-text-error" th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}"></div>
                 </div>
                 <br>
                 <div class="row">

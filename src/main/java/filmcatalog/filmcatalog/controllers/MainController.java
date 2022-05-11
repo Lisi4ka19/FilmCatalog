@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.io.*;
 import java.util.Base64;
 import java.util.List;
@@ -70,15 +73,36 @@ public class MainController {
     }
 
     @PostMapping("/saveFilm")
-    public String saveFilm(@RequestParam("file") MultipartFile file, @ModelAttribute("film") Film film) {
+    public String saveFilm(Model model, @RequestParam("file") MultipartFile file,  @Valid @ModelAttribute("film") Film film, BindingResult bindingResult) {
+
+
+        String username = getUserName();
+        film.setUsername(username);
+
+       if (bindingResult.hasErrors()) {
+
+           String codeStringImage = "";
+           if(film.getImage()!=null) codeStringImage = Base64.getEncoder().encodeToString(film.getImage());
+
+           model.addAttribute("film", film);
+
+           model.addAttribute("codeStringImage", codeStringImage);
+
+
+           Boolean enable = username.equals(film.getUsername())||film.getUsername()==null;
+
+           model.addAttribute("enable", enable);
+           model.addAttribute("username", username);
+           return "film-view";
+       }
+
+
         try {
             film.setImage(file.getBytes());
         } catch (IOException e) {
             System.out.println("Error for read file");
         }
 
-        String username = getUserName();
-        film.setUsername(username);
 
         filmService.saveFilm(film);
 

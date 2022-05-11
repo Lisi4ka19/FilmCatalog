@@ -1,6 +1,9 @@
 package filmcatalog.filmcatalog.entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="films")
@@ -11,15 +14,18 @@ public class Film {
     @Column(name="id")
     private int id;
 
+    @Size(min=2, message = "Name - required field")
     @Column(name="name")
     private String name;
 
     @Column(name="description")
     private String description;
 
+    @Range(min=1900, max=2300, message = "Incorrect data - Year of issue")
     @Column(name="year_issue")
     private int yearOfIssue;
 
+    @Size(min=2, message = "Producer - required field")
     @Column(name="producer")
     private String producer;
 
